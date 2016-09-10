@@ -20,22 +20,55 @@ def wsnX_init():
     pass
 
 
-class node:
+class Node:
     
-    # 节点大小
-    S = 5
-    M = 10
-    L = 15
-    
-    def __init__(self):
-        self.size = node.S
+    def __init__(self, screen, pos, size=5, color=(255, 0, 0)):
+        self.size = size
         self.color = (255, 0, 0)
+        self.screen = screen
+        self.pos = pos
         
+        '''
+        # 节点大小
+        node.S = 5
+        node.M = 10
+        node.L = 15
+        '''
+        self.draw()
+    
     
     #画出节点
-    def draw(self, screen):
+    def draw(self):
         pass
         
+        
+    #重画节点    
+    def re_draw(self):
+        self.draw() 
+        
+    #改变节点尺寸
+    def alter_size(self, size):
+        self.size = size
+        
+
+
+class wsnXX:
+
+    def __init__(self, l=500, w=500):
+        pygame.init()
+        self.length = l
+        self.width = w
+        self.bg = (255, 255, 255)
+        
+        # length与width是节点分布区域大小,乘以1.2后是实际窗口大小
+        self.screen = pygame.display.set_mode((int(self.length*1.2), int(self.width*1.2)), 0, 32)
+        self.screen.fill(self.bg)
+        
+        #所有节点集合
+        self.nodes = []
+        
+        
+
 
 class wsnX:
     
@@ -57,7 +90,7 @@ class wsnX:
         
         #所有节点集合
         self.nodes = []
-        
+  
     
     def __creat_area(self):
         pygame.draw.line(self.screen, wsnX.others_color, 
