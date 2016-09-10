@@ -7,6 +7,8 @@ Created on Wed Sep  7 21:04:57 2016
 @brief:
         wsnX功能简单,专用于无线传感网的网络连接算法仿真.
         wsnX基于pygame库开发.
+        
+        Refactor to MVC
 """
 
 import pygame
@@ -16,6 +18,24 @@ import sys
 
 def wsnX_init():
     pass
+
+
+class node:
+    
+    # 节点大小
+    S = 5
+    M = 10
+    L = 15
+    
+    def __init__(self):
+        self.size = node.S
+        self.color = (255, 0, 0)
+        
+    
+    #画出节点
+    def draw(self, screen):
+        pass
+        
 
 class wsnX:
     
@@ -28,7 +48,7 @@ class wsnX:
         pygame.init()
         self.length = l
         self.width = w
-        
+        self.bg = bg
         # 第二个,第三个参数没查是什么作用
         # length与width是节点分布区域大小,乘以1.2后是实际窗口大小
         self.screen = pygame.display.set_mode((int(self.length*1.2), int(self.width*1.2)), 0, 32)
@@ -85,6 +105,11 @@ class wsnX:
         self.__draw_update()
 
 
+
+    def extend_node(self, radius=5):
+        pass
+
+
     # 连接两个节点
     def link_double(self, node_1, node_2, color=connector_color):
         no_1, no_2 = self.__coordinate_conver(node_1), self.__coordinate_conver(node_2)
@@ -98,6 +123,13 @@ class wsnX:
         for node in nodes:
             self.link_double(central_node, node, color)
 
+    
+    #擦除两点连接
+    def erase_link(self, node_1, node_2):
+        self.link_double(node_1, node_2,self.bg)        
+        self.add_nodes((node_1,node_2))
+        self.__draw_update()
+        
     # 刷新画布--将新画的内容添加到画布        
     def __draw_update(self):
         pygame.display.update()
